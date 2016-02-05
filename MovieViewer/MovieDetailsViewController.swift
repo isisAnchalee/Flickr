@@ -10,7 +10,9 @@ import UIKit
 
 
 class MovieDetailsViewController: UIViewController {
-
+    @IBOutlet weak var infoView: UIView!
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
@@ -31,6 +33,7 @@ class MovieDetailsViewController: UIViewController {
         
         titleLabel.text = title
         overviewLabel.text = overview
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
         
         print(title)
         // Do any additional setup after loading the view.
