@@ -33,6 +33,7 @@ class MovieDetailsViewController: UIViewController {
         
         titleLabel.text = title
         overviewLabel.text = overview
+        overviewLabel.sizeToFit()
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
         
         print(title)

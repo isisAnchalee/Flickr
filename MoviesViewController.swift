@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 import AFNetworking
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -19,7 +20,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.dataSource = self
         tableView.delegate = self
         // Do any additional setup after loading the view.
-        
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
         let request = NSURLRequest(URL: url!)
@@ -29,20 +29,27 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             delegateQueue: NSOperationQueue.mainQueue()
         )
         
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        
         let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (dataOrNil, response, error) in
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
                             NSLog("response: \(responseDictionary)")
-                        self.movies = responseDictionary["results"] as! [NSDictionary]
+                        self.movies = responseDictionary["results"] as? [NSDictionary]
                         self.tableView.reloadData()
+                        MBProgressHUD.hideHUDForView(self.view, animated: true)
                             
                     }
                 }
         })
         
         task.resume()
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,11 +80,33 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
         
-        print("row \(indexPath.row)")
         return cell
     }
     
-
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        
+        let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
+        let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+        let request = NSURLRequest(URL: url!)
+        let session = NSURLSession(
+            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+            delegate:nil,
+            delegateQueue:NSOperationQueue.mainQueue()
+        )
+        
+        let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
+            completionHandler: { (data, response, error) in
+                
+                // ... Use the new data to update the data source ...
+                
+                // Reload the tableView now that there is new data
+                self.tableView.reloadData()
+                
+                // Tell the refreshControl to stop spinning
+                refreshControl.endRefreshing()	
+        });
+        task.resume()
+    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         print("prepare for segueway called")
@@ -88,5 +117,5 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let movieDetailViewController = segue.destinationViewController as! MovieDetailsViewController
         movieDetailViewController.movie = movie
     }
-
+    
 }
