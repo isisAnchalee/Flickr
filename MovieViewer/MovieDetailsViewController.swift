@@ -28,7 +28,12 @@ class MovieDetailsViewController: UIViewController {
         
         if let posterPath = movie.posterPath {
             let imageUrl = NSURL(string: baseUrl + posterPath)
+            posterImageView.alpha = 0.0
             posterImageView.setImageWithURL(imageUrl!)
+            UIView.animateWithDuration(1.0, animations: {() -> Void in
+                self.posterImageView.alpha = 1.0
+            })
+            
         }
         
         titleLabel.text = title

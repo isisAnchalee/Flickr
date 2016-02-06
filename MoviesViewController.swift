@@ -24,13 +24,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.dataSource = self
         tableView.delegate = self
         networkErrorView.hidden = true
-        
         filteredData = movieModels
         
         let searchBar = UISearchBar()
-        searchBar.sizeToFit()
+            searchBar.sizeToFit()
+            searchBar.delegate = self
+        
         navigationItem.titleView = searchBar
-        searchBar.delegate = self
+        
         
         makeRequest()
         addUIRefreshControl()
@@ -71,9 +72,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         task.resume()
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        print("typing!!!")
-        
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {        
         filteredData = searchText.isEmpty ? movieModels : movieModels.filter({(movie: MovieModel) -> Bool in
             return movie.title!.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil
         })
@@ -100,6 +99,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         if let posterPath = movie.posterPath! as String? {
             let imageUrl = NSURL(string: baseUrl + posterPath)
             cell.posterView.setImageWithURL(imageUrl!)
+            cell.posterView.alpha = 0.0
+            UIView.animateWithDuration(1.0, animations: {() -> Void in
+                cell.posterView.alpha = 1.0
+            })
+            
         }
         
         cell.titleLabel.text = title
@@ -107,7 +111,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         return cell
     }
-    
+
     func addUIRefreshControl(){
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
@@ -135,14 +139,22 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         });
         task.resume()
     }
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let cell = sender as! UITableViewCell
         let indexPath = tableView.indexPathForCell(cell)
         let movie = movieModels[indexPath!.row]
         let movieDetailViewController = segue.destinationViewController as! MovieDetailsViewController
         
+        highlightCell(cell)
         movieDetailViewController.movie = movie
+    }
+    
+    func highlightCell(cell: UITableViewCell){
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.blackColor()
+        cell.selectedBackgroundView = backgroundView
+        cell.textLabel?.textColor = UIColor.whiteColor()
     }
     
 }
