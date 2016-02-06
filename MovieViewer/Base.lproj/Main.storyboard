@@ -59,10 +59,34 @@
                     </view>
                     <navigationItem key="navigationItem" title="Movies" id="hKH-O3-C0X"/>
                     <connections>
+                        <outlet property="networkErrorView" destination="70H-45-XyO" id="Bzu-Vb-vF7"/>
+                        <outlet property="searchDisplayController" destination="ERh-KV-EnA" id="1F3-E9-fIY"/>
                         <outlet property="tableView" destination="dJq-fl-hwy" id="0cO-eG-i7K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <view alpha="0.75" contentMode="scaleToFill" id="70H-45-XyO">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⚠️ Network Error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xJy-fL-HuL">
+                            <rect key="frame" x="0.0" y="4" width="320" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <searchDisplayController id="ERh-KV-EnA">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="QQ0-ea-Mz9"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="zbN-MG-E7X"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="XWJ-I5-M0N"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="lnF-DT-P8y"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="546" y="-97"/>
         </scene>
@@ -124,7 +148,7 @@
         <!--Navigation Controller-->
         <scene sceneID="DrJ-e4-yaj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1o2-x0-jpp" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="moviesNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="1o2-x0-jpp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tXQ-RM-JEm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

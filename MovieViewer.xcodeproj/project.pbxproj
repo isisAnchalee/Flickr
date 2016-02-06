@@ -15,6 +15,7 @@
 		B26B9B0F1C6298C100E231D8 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26B9B0E1C6298C100E231D8 /* MoviesViewController.swift */; };
 		B26B9B151C62CFD500E231D8 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26B9B141C62CFD500E231D8 /* MovieCell.swift */; };
 		B26B9B171C62DD1600E231D8 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26B9B161C62DD1600E231D8 /* MovieDetailsViewController.swift */; };
+		B2835CEF1C646BDA0057DE45 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2835CEE1C646BDA0057DE45 /* MovieModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		B26B9B0E1C6298C100E231D8 /* MoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoviesViewController.swift; path = ../MoviesViewController.swift; sourceTree = "<group>"; };
 		B26B9B141C62CFD500E231D8 /* MovieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		B26B9B161C62DD1600E231D8 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
+		B2835CEE1C646BDA0057DE45 /* MovieModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		EF2345A963DBFCCF9A9A423A /* Pods-MovieViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieViewer/Pods-MovieViewer.release.xcconfig"; sourceTree = "<group>"; };
 		F9B944AAF8C6EDDCCE641DB5 /* Pods_MovieViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -89,6 +91,7 @@
 				B26B9B011C62977F00E231D8 /* Assets.xcassets */,
 				B26B9B031C62977F00E231D8 /* LaunchScreen.storyboard */,
 				B26B9B061C62977F00E231D8 /* Info.plist */,
+				B2835CEE1C646BDA0057DE45 /* MovieModel.swift */,
 			);
 			path = MovieViewer;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 			files = (
 				B26B9B171C62DD1600E231D8 /* MovieDetailsViewController.swift in Sources */,
 				B26B9AFB1C62977F00E231D8 /* AppDelegate.swift in Sources */,
+				B2835CEF1C646BDA0057DE45 /* MovieModel.swift in Sources */,
 				B26B9B0F1C6298C100E231D8 /* MoviesViewController.swift in Sources */,
 				B26B9B151C62CFD500E231D8 /* MovieCell.swift in Sources */,
 			);
