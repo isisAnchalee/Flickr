@@ -23,7 +23,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        
         networkErrorView.hidden = true
+        tableView.bringSubviewToFront(networkErrorView)
+        
         filteredData = movieModels
         
         let searchBar = UISearchBar()
@@ -33,11 +36,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         navigationItem.titleView = searchBar
         
         
-        makeRequest()
+        fetchMovies(nil)
         addUIRefreshControl()
     }
     
-    func makeRequest(){
+    func fetchMovies(refreshControl: UIRefreshControl?){
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string: "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
         let request = NSURLRequest(URL: url!)
@@ -60,8 +63,12 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                             }
                             
                             self.filteredData = self.movieModels
-                            self.tableView.reloadData()
                             MBProgressHUD.hideHUDForView(self.view, animated: true)
+                            
+                            if (refreshControl  != nil){
+                                    refreshControl!.endRefreshing()
+                            }
+                            self.tableView.reloadData()
                             
                     }
                 } else {
@@ -124,20 +131,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func refreshControlAction(refreshControl: UIRefreshControl) {
-        let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
-        let request = NSURLRequest(URL: url!)
-        let session = NSURLSession(
-            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
-            delegate:nil,
-            delegateQueue:NSOperationQueue.mainQueue()
-        )
-        
-        let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
-            completionHandler: { (data, response, error) in
-                self.refreshControlCallback(refreshControl)
-        });
-        task.resume()
+        fetchMovies(refreshControl)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
