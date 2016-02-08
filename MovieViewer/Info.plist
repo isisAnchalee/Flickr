@@ -6,6 +6,10 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>tmdb.org</key>
+			<dict/>
+			<key>NSExceptionAllowsInsecureHTTPLoads</key>
+			<true/>
 			<key>api.themoviedb.org</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>

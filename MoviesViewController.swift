@@ -12,6 +12,7 @@ import AFNetworking
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate{
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var networkErrorView: UIView!
     @IBOutlet weak var tableView: UITableView!
     var endpoint: String!
@@ -23,18 +24,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        
-        networkErrorView.hidden = true
         tableView.bringSubviewToFront(networkErrorView)
+        networkErrorView.hidden = true
         
         filteredData = movieModels
         
-        let searchBar = UISearchBar()
-            searchBar.sizeToFit()
-            searchBar.delegate = self
-        
-        navigationItem.titleView = searchBar
-        
+        searchBar.sizeToFit()
+        searchBar.delegate = self
         
         fetchMovies(nil)
         addUIRefreshControl()
@@ -95,28 +91,56 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredData.count
     }
-    
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
         let movie = filteredData[indexPath.row]
-        let title = movie.title
-        let overview = movie.overview
-        let baseUrl =  movie.baseUrl
         
         if let posterPath = movie.posterPath! as String? {
-            let imageUrl = NSURL(string: baseUrl + posterPath)
-            cell.posterView.setImageWithURL(imageUrl!)
-            cell.posterView.alpha = 0.0
-            UIView.animateWithDuration(1.0, animations: {() -> Void in
-                cell.posterView.alpha = 1.0
-            })
-            
+            let lowResPath = "https://image.tmdb.org/t/p/w45"
+            let highResPath = "https://image.tmdb.org/t/p/w500"
+            let smallImageRequest = NSURLRequest(URL: NSURL(string: lowResPath + posterPath)!)
+            let largeImageRequest = NSURLRequest(URL: NSURL(string: highResPath + posterPath)!)
+            makeImageRequests(cell, smallImageRequest: smallImageRequest, largeImageRequest: largeImageRequest)
         }
         
-        cell.titleLabel.text = title
-        cell.overviewLabel.text = overview
+        cell.titleLabel.text = movie.title
+        cell.overviewLabel.text = movie.overview
         
         return cell
+    }
+    
+        func makeImageRequests(cell: MovieCell, smallImageRequest: NSURLRequest, largeImageRequest: NSURLRequest){
+            cell.posterView.setImageWithURLRequest(
+                smallImageRequest,
+                placeholderImage: nil,
+                success: { (smallImageRequest, smallImageResponse, smallImage) -> Void in
+                    
+                    cell.posterView.alpha = 0.0
+                    cell.posterView.image = smallImage;
+                    
+                    UIView.animateWithDuration(0.3, animations: { () -> Void in
+                        cell.posterView.alpha = 1.0
+                        }, completion: { (sucess) -> Void in
+                            
+                            cell.posterView.setImageWithURLRequest(
+                                largeImageRequest,
+                                placeholderImage: smallImage,
+                                success: { (largeImageRequest, largeImageResponse, largeImage) -> Void in
+                                    
+                                    cell.posterView.image = largeImage;
+                                    
+                                },
+                                failure: { (request, response, error) -> Void in
+                                    // do something for the failure condition of the large image request
+                                    // possibly setting the ImageView's image to a default image
+                            })
+                    })
+                },
+                failure: { (request, response, error) -> Void in
+                    // do something for the failure condition
+                    // possibly try to get the large image
+            })
     }
 
     func addUIRefreshControl(){
@@ -148,6 +172,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.blackColor()
         cell.selectedBackgroundView = backgroundView
+        cell.selectedBackgroundView?.alpha = 0.2
         cell.textLabel?.textColor = UIColor.whiteColor()
     }
     
