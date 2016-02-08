@@ -16,6 +16,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var networkErrorView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var viewToggleSegmentedControl: UISegmentedControl!
+    
     var endpoint: String!
     
     var movieModels: [MovieModel] = []
@@ -43,8 +45,16 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("movieColCell", forIndexPath: indexPath) as! MovieCollectionViewCell
-        let cellColor = filteredData[indexPath.row]
+        let movie = filteredData[indexPath.row]
         
+        if let posterPath = movie.posterPath {
+            let baseUrl = "https://image.tmdb.org/t/p/w500"
+            let imageUrl = NSURL(string: baseUrl + posterPath)
+            cell.posterImage.setImageWithURL(imageUrl!)
+            UIView.animateWithDuration(1.0, animations: {() -> Void in
+                cell.posterImage.alpha = 1.0
+            })
+        }
         return cell
     }
     
@@ -77,6 +87,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                                     refreshControl!.endRefreshing()
                             }
                             self.tableView.reloadData()
+                            self.collectionView.reloadData()
                             
                     }
                 } else {
@@ -93,6 +104,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         })
         
         tableView.reloadData()
+        collectionView.reloadData()
+
     }
     
     override func didReceiveMemoryWarning() {
