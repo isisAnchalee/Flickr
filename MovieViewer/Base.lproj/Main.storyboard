@@ -101,6 +101,7 @@
                                         </view>
                                         <connections>
                                             <outlet property="posterImage" destination="WwQ-pW-gdU" id="QjZ-Rr-8hb"/>
+                                            <segue destination="rhq-zj-SaK" kind="push" id="zlk-Gv-EYW"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -237,7 +238,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0h6-lu-99g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="14" y="-97"/>
+            <point key="canvasLocation" x="-244" y="-83"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="zlk-Gv-EYW"/>
+    </inferredMetricsTieBreakers>
 </document>

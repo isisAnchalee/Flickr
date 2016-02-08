@@ -136,7 +136,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MoviesViewController.swift"
-            timestampString = "476596772.708737"
+            timestampString = "476598052.949424"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "242"
@@ -246,7 +246,7 @@
                   moduleName = "MovieViewer"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/isisanchalee/Desktop/Codepath/MovieViewer/MovieViewer/MovieDetailsViewController.swift"
-                  timestampString = "476596423.482947"
+                  timestampString = "476598053.971972"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -261,7 +261,7 @@
                   moduleName = "MovieViewer"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/isisanchalee/Desktop/Codepath/MovieViewer/MovieViewer/MovieDetailsViewController.swift"
-                  timestampString = "476596423.483306"
+                  timestampString = "476598053.972148"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -294,7 +294,7 @@
                   moduleName = "MovieViewer"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/isisanchalee/Desktop/Codepath/MovieViewer/MovieViewer/MovieDetailsViewController.swift"
-                  timestampString = "476596423.485085"
+                  timestampString = "476598053.973869"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -309,7 +309,7 @@
                   moduleName = "MovieViewer"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/isisanchalee/Desktop/Codepath/MovieViewer/MovieViewer/MovieDetailsViewController.swift"
-                  timestampString = "476596423.485497"
+                  timestampString = "476598053.97425"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -458,6 +458,22 @@
                   offsetFromSymbolStart = "262">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MoviesViewController.swift"
+            timestampString = "476598052.949424"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "prepareForSegue(_:sender:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
