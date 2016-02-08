@@ -16,7 +16,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var networkErrorView: UIView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var viewToggleSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var viewControl: UISegmentedControl!
     
     var endpoint: String!
     
@@ -36,6 +36,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         searchBar.delegate = self
         
         collectionView.dataSource = self
+        collectionView.hidden = true
+        
         fetchMovies(nil)
         addUIRefreshControl()
     }
@@ -58,6 +60,20 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
     
+    @IBAction func toggleview(sender: AnyObject) {
+        let selectedView = viewControl.selectedSegmentIndex
+        print("HEU!!!!\(selectedView)")
+
+        if selectedView == 0{
+            collectionView.hidden = true
+            tableView.hidden = false
+        }else{
+            collectionView.hidden = false
+            tableView.hidden = true
+        }
+    }
+
+
     func fetchMovies(refreshControl: UIRefreshControl?){
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string: "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
