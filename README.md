@@ -24,10 +24,6 @@ The following **optional** features are implemented:
 - [x] Customize the highlight and selection effect of the cell.
 - [x] Customize the navigation bar.
 
-The following **additional** features are implemented:
-
-- [ ] List anything else that you can get done to improve the app functionality!
-
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
@@ -35,10 +31,6 @@ Here's a walkthrough of implemented user stories:
 <img src='https://media.giphy.com/media/l4Ki4W1wXuGvQnmLu/giphy.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
-
-## Notes
-
-Describe any challenges encountered while building the app.
 
 ## License
 
