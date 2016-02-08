@@ -10,8 +10,9 @@ import UIKit
 import MBProgressHUD
 import AFNetworking
 
-class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate{
+class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UICollectionViewDataSource{
     
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var networkErrorView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -32,8 +33,19 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         searchBar.sizeToFit()
         searchBar.delegate = self
         
+        collectionView.dataSource = self
         fetchMovies(nil)
         addUIRefreshControl()
+    }
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return filteredData.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("movieColCell", forIndexPath: indexPath) as! MovieCollectionViewCell
+        let cellColor = filteredData[indexPath.row]
+        
+        return cell
     }
     
     func fetchMovies(refreshControl: UIRefreshControl?){
